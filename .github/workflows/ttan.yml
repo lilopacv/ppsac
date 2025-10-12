@@ -1,4 +1,4 @@
-name: 自动部署代理到SAP
+name: 自动部署代理到SAP1
 
 on:
   schedule:
