@@ -2,7 +2,7 @@ name: 自动部署代理到SAP1
 
 on:
   schedule:
-    - cron: '06 0 * * *'  # 每天0:00 UTC时间执行
+    - cron: '20 22 * * *'  # 每天0:00 UTC时间执行
   workflow_dispatch:  # 允许手动触发
     inputs:
       type:
@@ -81,7 +81,9 @@ jobs:
     - name: Determine CF API endpoint and app name
       run: |
         # 设置API端点和生成随机字符串
-        RANDOM_STR=$(head /dev/urandom | tr -dc 'a-z' | head -c 6)
+        # RANDOM_STR=$(head /dev/urandom | tr -dc 'a-z' | head -c 6)
+        RANDOM_STR=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
+
         
         # 确定区域：定时触发使用默认值，手动触发使用用户输入
         if [ "${{ github.event_name }}" = "schedule" ]; then
