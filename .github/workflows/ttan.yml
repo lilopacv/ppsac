@@ -2,7 +2,7 @@ name: 自动部署代理到SAP1
 
 on:
   schedule:
-    - cron: '20 22 * * *'  # 每天0:00 UTC时间执行
+    - cron: '20 00 * * *'  # 每天0:00 UTC时间执行
   workflow_dispatch:  # 允许手动触发
     inputs:
       type:
