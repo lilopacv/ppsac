@@ -80,8 +80,18 @@ jobs:
     - name: Determine CF API endpoint and app name
       run: |
         # 设置API端点和生成随机字符串
-        # RANDOM_STR=$(head /dev/urandom | tr -dc 'a-z' | head -c 6)
-        RANDOM_STR=$(head /adv1/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
+        # 尝试多个 urandom 路径作为回退
+        for U in /dev/urandom /adv1/urandom /fghc/urandom; do
+          if [ -r "$U" ]; then
+            RANDOM_STR=$(head "$U" | tr -dc 'a-zA-Z0-9' | head -c 12)
+            break
+          fi
+        done
+
+        # 如果上述都不可用，则使用时间戳+sha256作为兜底
+        if [ -z "$RANDOM_STR" ]; then
+          RANDOM_STR=$(date +%s%N | sha256sum | tr -dc 'a-zA-Z0-9' | head -c 12)
+        fi
         
         case "${{ github.event.inputs.region }}" in
           # 免费区域
