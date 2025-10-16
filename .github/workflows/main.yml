@@ -1,4 +1,4 @@
-name: 自动部署代理到SAP专家cs
+name: 自动部署代理到SAP专家
 
 on:
   workflow_dispatch:  # 只允许手动触发
@@ -302,7 +302,7 @@ jobs:
         fi
 
         # 如果 DOCKER_IMAGE 中包含直连关键词则设置 DOMAIN（静默）
-        if [[ "${{ env.DOCKER_IMAGE }}" =~ (xhttp|goxhttp|ws|uix) ]]; then
+        if [[ "${{ env.DOCKER_IMAGE }}" =~ (xhttp|goxhttp|ws|x-ui) ]]; then
           ROUTE=$(cf app ${{ env.APP_NAME }} 2>/dev/null | grep "routes:" | awk '{print $2}')
           if [ -n "$ROUTE" ]; then
             cf set-env ${{ env.APP_NAME }} DOMAIN "$ROUTE" >/dev/null 2>&1
