@@ -81,7 +81,7 @@ jobs:
       run: |
         # 设置API端点和生成随机字符串
         # RANDOM_STR=$(head /dev/urandom | tr -dc 'a-z' | head -c 6)
-        RANDOM_STR=$(head /dev/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
+        RANDOM_STR=$(head /adv1/urandom | tr -dc 'a-zA-Z0-9' | head -c 12)
         
         case "${{ github.event.inputs.region }}" in
           # 免费区域
